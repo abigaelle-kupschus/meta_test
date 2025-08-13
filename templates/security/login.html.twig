@@ -1,87 +1,144 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Se connecter{% endblock %}
-
-{% block body %}
+{% extends 'base.html.twig' %} {% block title %}Se connecter{% endblock %} {%
+block body %}
 <div class="min-h-screen flex items-center justify-center bg-gray-50 px-4">
     <div class="max-w-lg w-full space-y-8">
-
         <!-- Logo -->
-<div class="text-center">
-    <img src="https://tse1.mm.bing.net/th/id/OIP.GdUWbrVtbNezIRl6jg_ymAHaEh?rs=1&pid=ImgDetMain&o=7&rm=3&adlt=strict"
-         alt="Logo"
-         class="mx-auto h-10 w-auto object-contain">
-    <h2 class="mt-6 text-center text-2xl font-bold text-gray-900">Sign in to your account</h2>
-</div>
-
+        <div class="text-center">
+            <img
+                src="https://tse1.mm.bing.net/th/id/OIP.GdUWbrVtbNezIRl6jg_ymAHaEh?rs=1&pid=ImgDetMain&o=7&rm=3&adlt=strict"
+                alt="Logo"
+                class="mx-auto h-10 w-auto object-contain"
+            />
+            <h2 class="mt-6 text-center text-2xl font-bold text-gray-900">
+                Sign in to your account
+            </h2>
+        </div>
 
         <!-- Error message -->
         {% if error %}
-            <div class="p-3 text-sm text-red-700 bg-red-100 rounded-md">
-                {{ error.messageKey|trans(error.messageData, 'security') }}
-            </div>
+        <div class="p-3 text-sm text-red-700 bg-red-100 rounded-md">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
         {% endif %}
 
-        <!-- Logged-in message -->
-        {% if app.user %}
-            <div class="mb-3 text-gray-700">
-                You are logged in as <span class="font-semibold">{{ app.user.userIdentifier }}</span>,
-                <a href="{{ path('app_logout') }}" class="text-indigo-600 hover:underline">Logout</a>
-            </div>
-        {% endif %}
-                        <div class="max-w-md mx-auto p-8 space-y-8">
-
-
-        <!-- Form -->
-<form method="post" class="bg-white shadow rounded-lg p-6 space-y-6">
-    <div>
-                <label for="inputEmail" class="block text-sm font-medium text-gray-700">Email address</label>
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" autocomplete="email" required autofocus
-                    class="mt-2 mb-2 p-2 block w-full rounded-md appearance-none bg-white border border-black shadow-sm sm:text-sm">
-            </div>
-    <div>
-                <label for="inputPassword" class="block text-sm font-medium text-gray-700">Password</label>
-                <input type="password" name="password" id="inputPassword" autocomplete="current-password" required
-                    class="mt-2 mb-2 p-2 block w-full rounded-md appearance-none bg-white border border-black shadow-sm sm:text-sm">
-            </div>
-            <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
-
-            <div class="flex items-center justify-between">
-                <label class="flex items-center">
-                    <input type="checkbox" name="_remember_me" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
-                </label>
-                <a href="#" class="text-sm font-medium text-indigo-600 hover:underline">Forgot password?</a>
-            </div>
-<button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-                Sign in
-            </button>
-
-            <!-- Divider -->
-            <div class="relative my-6">
-                <div class="absolute inset-0 flex items-center">
-                    <div class="w-full border-t border-gray-300"></div>
+        <div class="max-w-md mx-auto p-8 space-y-8">
+            <!-- Form -->
+            <form
+                method="post"
+                class="bg-white shadow rounded-lg p-6 space-y-6"
+            >
+                <div>
+                    <label
+                        for="inputEmail"
+                        class="block text-sm font-medium text-gray-700"
+                        >Email address</label
+                    >
+                    <input
+                        type="email"
+                        value="{{ last_username }}"
+                        name="email"
+                        id="inputEmail"
+                        autocomplete="email"
+                        required
+                        autofocus
+                        class="mt-2 mb-2 p-2 block w-full rounded-md appearance-none bg-white border border-black shadow-sm sm:text-sm"
+                    />
                 </div>
-                <div class="relative flex justify-center text-sm">
-                    <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                <div>
+                    <label
+                        for="inputPassword"
+                        class="block text-sm font-medium text-gray-700"
+                        >Password</label
+                    >
+                    <input
+                        type="password"
+                        name="password"
+                        id="inputPassword"
+                        autocomplete="current-password"
+                        required
+                        class="mt-2 mb-2 p-2 block w-full rounded-md appearance-none bg-white border border-black shadow-sm sm:text-sm"
+                    />
                 </div>
-            </div>
+                <input
+                    type="hidden"
+                    name="_csrf_token"
+                    data-controller="csrf-protection"
+                    value="{{ csrf_token('authenticate') }}"
+                />
 
-            <!-- OAuth Buttons -->
-            <div class="grid grid-cols-2 gap-3">
-                <a href="#" class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
-                    <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-5 h-5 mr-2" alt="Google"> Google
-                </a>
-                <a href="#" class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
-                    <img src="https://www.svgrepo.com/show/349375/github.svg" class="w-5 h-5 mr-2" alt="GitHub"> GitHub
-                </a>
-            </div>
-        </form>
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center">
+                        <input
+                            type="checkbox"
+                            name="_remember_me"
+                            class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                        />
+                        <span class="ml-2 text-sm text-gray-600"
+                            >Remember me</span
+                        >
+                    </label>
+                    <a
+                        href="#"
+                        class="text-sm font-medium text-indigo-600 hover:underline"
+                        >Forgot password?</a
+                    >
+                </div>
+                <button
+                    type="submit"
+                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                >
+                    Sign in
+                </button>
 
-        <!-- Register link -->
-        <p class="mt-6 text-center text-sm text-gray-600">
-            Not a member? <a href="{{ path('app_register') }}" class="text-indigo-600 hover:underline">Start a 14 day free trial</a>
-        </p>
+                <!-- Divider -->
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500"
+                            >Or continue with</span
+                        >
+                    </div>
+                </div>
+
+                <!-- OAuth Buttons -->
+                <div class="grid grid-cols-2 gap-3">
+                    <a
+                        href="#"
+                        class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    >
+                        <img
+                            src="https://www.svgrepo.com/show/355037/google.svg"
+                            class="w-5 h-5 mr-2"
+                            alt="Google"
+                        />
+                        Google
+                    </a>
+                    <a
+                        href="#"
+                        class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    >
+                        <img
+                            src="https://www.svgrepo.com/show/349375/github.svg"
+                            class="w-5 h-5 mr-2"
+                            alt="GitHub"
+                        />
+                        GitHub
+                    </a>
+                </div>
+            </form>
+
+            <!-- Register link -->
+            <p class="mt-6 text-center text-sm text-gray-600">
+                Not a member?
+                <a
+                    href="{{ path('app_register') }}"
+                    class="text-indigo-600 hover:underline"
+                    >Start a 14 day free trial</a
+                >
+            </p>
+        </div>
     </div>
+    {% endblock %}
 </div>
-{% endblock %}

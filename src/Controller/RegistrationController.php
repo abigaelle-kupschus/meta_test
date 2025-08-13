@@ -14,7 +14,10 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Symfony\Component\Form\FormError;
 
 class RegistrationController extends AbstractController
 {
@@ -36,6 +39,19 @@ class RegistrationController extends AbstractController
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
+            // Validation de l'email avant d'envoyer le mail
+            $validator = Validation::createValidator();
+            $violations = $validator->validate($user->getEmail(), [
+                new EmailConstraint(['message' => 'Ceci n\'est pas une adresse mail valide.']),
+            ]);
+
+            if (count($violations) > 0) {
+                $form->get('email')->addError(new FormError($violations[0]->getMessage()));
+                return $this->render('registration/register.html.twig', [
+                    'registrationForm' => $form,
+                ]);
+            }
+
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -43,12 +59,10 @@ class RegistrationController extends AbstractController
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('abigaelle.kupschus@hotmail.com', 'Test Agence Meta'))
-                    ->to((string) $user->getEmail())
+                    ->to($user->getEmail()) // email validé ici
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-
-            // do anything else you need here, like send an email
 
             return $this->redirectToRoute('app_login');
         }
@@ -74,7 +88,6 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register');
         }
 
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('app_login');

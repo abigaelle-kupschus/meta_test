@@ -1,12 +1,23 @@
 {
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.11",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
-    "postcss-cli": "^11.0.1",
-    "tailwindcss": "^4.1.11"
+  "name": "kupschus",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
   },
   "scripts": {
-    "build:css": "postcss src/input.css -o public/css/output.css"
-  }
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abigaelle-kupschus/meta_test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abigaelle-kupschus/meta_test/issues"
+  },
+  "homepage": "https://github.com/abigaelle-kupschus/meta_test#readme",
+  "description": ""
 }

@@ -1,18 +1,48 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %}Hello HomeController!{% endblock
+%} {% block body %}
+<div class="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <!-- Carte centrale -->
+    <div
+        class="max-w-lg w-full bg-white rounded-xl shadow-lg p-8 space-y-6 text-center"
+    >
+        <!-- Titre principal -->
+        <h1 class="text-3xl font-bold text-gray-900">
+            Vous êtes bien connecté
+        </h1>
 
-{% block title %}Hello HomeController!{% endblock %}
+        <!-- Texte -->
+        <div class="text-gray-700 leading-relaxed space-y-4 text-justify">
+            <p>
+                Je tiens à vous exprimer toute ma gratitude pour m’avoir donné
+                l’opportunité de passer ce test. Cette expérience m’a permis de
+                mettre en pratique une de mes compétences.
+            </p>
+            <p>
+                J’espère sincèrement avoir répondu à vos attentes, tant sur le
+                plan technique que sur le respect des consignes et de la
+                présentation. Cette épreuve a été pour moi un moment
+                enrichissant, qui m’a confortée dans ma volonté de progresser et
+                de m’investir pleinement. Je vous invite cependant à lire le
+                readme sur la branche main sur mon dépôt github.
+            </p>
+            <p>
+                Merci encore pour le temps et l’attention que vous avez accordés
+                à mon travail. Vous pouvez à présent vous déconnecter.
+            </p>
+        </div>
 
-{% block body %}
+        <!-- Ligne décorative -->
+        <div class="border-t border-gray-200"></div>
 
-<div class="example-wrapper">
-    <h1>Bonjour examinateur</h1>
-<h2 class="text-4xl font-bold text-blue-600">Tailwind fonctionne !</h2>
-    <p>Je vous suis reconnaissante de m'avoir permis de passer ce test. En espérant avoir respecté vos attentes, je vous invite à vous déconnecter.</p>
-<form action="{{ path('app_logout') }}" method="POST">
-  <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
-    Logout
-  </button>
-</form>
-
+        <!-- Bouton Logout -->
+        <form action="{{ path('app_logout') }}" method="POST">
+            <button
+                type="submit"
+                class="w-full py-3 px-6 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition"
+            >
+                Logout
+            </button>
+        </form>
+    </div>
 </div>
 {% endblock %}

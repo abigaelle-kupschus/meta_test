@@ -30,6 +30,7 @@ class AppCustomAuthentificatorAuthenticator extends AbstractLoginFormAuthenticat
     {
         $email = $request->getPayload()->getString('email');
 
+
         $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $email);
 
         return new Passport(
